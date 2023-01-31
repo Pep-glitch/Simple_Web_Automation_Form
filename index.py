@@ -1,0 +1,31 @@
+from selenium import webdriver
+from selenium.webdriver.common.keys import Keys
+import time
+
+web = webdriver.Chrome('C:\Program Files\Google\Chrome\Application\chrome.exe')
+# web = webdriver.Chrome('chromedriver.exe')
+time.sleep(2)
+web.get('https://docs.google.com/forms/d/e/1FAIpQLSek4lvyKCkjeKHJwRRSUdsNb4WCIohFNlog7YjeWVzmEr3DQQ/viewform')
+# web.close()
+time.sleep(2)
+
+LastName = "JOHN"
+last = web.find_element_by_xpath('//*[@id="mG61Hd"]/div[2]/div/div[2]/div[1]/div/div/div[2]/div/div[1]/div/div[1]/input')
+last.send_keys(LastName)
+
+FirstName = "PAUL"
+first = web.find_element_by_xpath('//*[@id="mG61Hd"]/div[2]/div/div[2]/div[2]/div/div/div[2]/div/div[1]/div/div[1]/input')
+first.send_keys(FirstName)
+
+RadioButtonPeriod = web.find_element_by_xpath('//*[@id="mG61Hd"]/div[2]/div/div[2]/div[3]/div/div/div[2]/div[1]/div/span/div/div[2]/label/div/div[1]/div/div[3]/div')
+RadioButtonPeriod.click()
+
+Submit = web.find_element_by_xpath('//*[@id="mG61Hd"]/div[2]/div/div[3]/div[1]/div/div/span')
+Submit.click()
+
+get_confirmation_div_text = web.find_element_by_css_selector('.freebirdFormviewerViewResponseConfirmationMessage')
+print(get_confirmation_div_text.text)
+if ((get_confirmation_div_text.text) == "Thank you for attending"):
+    print ("Test Was Successful")
+else:
+    print("Test Was Not Successful")
